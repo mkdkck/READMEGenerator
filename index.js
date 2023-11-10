@@ -1,4 +1,5 @@
-let inquirer = require ('inquirer');
+const inquirer = require ('inquirer');
+const generateMarkdown = require ('generateMarkdown');
 const { writeFile } = require('fs').promises;
 
 
@@ -38,9 +39,12 @@ const questions = () => {
         type: 'list',
         name: 'license',
         message: 'What license you want to use for this application?',
-        choices: []
+        choices: ['MIT',
+          'Apache-2.0',
+          'GPL-V3',
+          'BSD-3-Clause',
+          'None']
       },
-      
       {
         type: 'input',
         name: 'github',
@@ -51,28 +55,16 @@ const questions = () => {
         name: 'contact',
         message: 'Please enter the contact detail for the user to reach you:',
       },
-    ]);
+    ])
   };
-  
 
-  const generateHTML = ({itle,description,installation,usage,contributing,test,license,github,contact }) =>
-  `
-  
-  
-  
-  
-  
-  `
+function init() {
+  questions()
+    .then((title,description,installation,usage,contributing,test,license,github,contact) =>
+      writeFile('README.md', generateMarkdown(title,description,installation,usage,contributing,test,license,github,contact)))
+    .then(() => console.log('Successfully wrote to README.md'))
+    .catch((err) => console.error(err));
+}
 
-// TODO: Include packages needed for this application
-
-// TODO: Create an array of questions for user input
-
-// TODO: Create a function to write README file
-
-// TODO: Create a function to initialize app
-function init() {}
-
-// Function call to initialize app
 init();
 

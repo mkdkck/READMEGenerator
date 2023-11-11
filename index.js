@@ -1,34 +1,34 @@
 const inquirer = require ('inquirer');
-const generateMarkdown = require ('generateMarkdown');
+const generateMarkdown = require ('./generateMarkdown.js');
 const { writeFile } = require('fs').promises;
 
-
+// inquirer sections of questions creating vaiables for readme.md
 const questions = () => {
     return inquirer.prompt([
       {
         type: 'input',
         name: 'title',
-        message: 'What is your project title?',
+        message: 'Please give a title to your application:',
       },
       {
         type: 'input',
         name: 'description',
-        message: 'Please descript your project:',
+        message: 'Please write some description:',
       },
       {
         type: 'input',
         name: 'installation',
-        message: 'How to install your application?',
+        message: 'Please give an instruction of how to install your application:',
       },
       {
         type: 'input',
         name: 'usage',
-        message: 'How to use this application?',
+        message: 'Where to use this application?',
       },
       {
         type: 'input',
-        name: 'contributing',
-        message: 'How to contribute to improve this application?',
+        name: 'contribution',
+        message: 'Please specify the contribution guildlines:',
       },
       {
         type: 'input',
@@ -55,13 +55,15 @@ const questions = () => {
         name: 'contact',
         message: 'Please enter the contact detail for the user to reach you:',
       },
-    ])
-  };
+  ])
+};
 
+
+// function to write the readme file.
 function init() {
   questions()
-    .then((title,description,installation,usage,contributing,test,license,github,contact) =>
-      writeFile('README.md', generateMarkdown(title,description,installation,usage,contributing,test,license,github,contact)))
+    .then((data) =>
+      writeFile('README.md', generateMarkdown(data)))
     .then(() => console.log('Successfully wrote to README.md'))
     .catch((err) => console.error(err));
 }

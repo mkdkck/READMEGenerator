@@ -46,8 +46,9 @@ function renderLicenseLink(license) {
 function generateMarkdown({title,description,installation,usage,contribution,test,license,github,contact}) {
   return `# ${title}
 
+  ${renderLicenseBadge(license)}
+
 ## Description
-${renderLicenseBadge(license)}
 
 ${description}
 
@@ -56,11 +57,10 @@ ${description}
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
-- [Contribute](#Contribute)
-- [Tests](#Tests)
-- [Questions](#Questions)
+- [Contribution](#contribution)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Installation
 Here is a detail instruction of how to install this application:

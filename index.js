@@ -1,5 +1,5 @@
 const inquirer = require ('inquirer');
-const generateMarkdown = require ('./generateMarkdown.js');
+const generateMarkdown = require ('./assets/javacript/generateMarkdown.js');
 const { writeFile } = require('fs').promises;
 
 // inquirer sections of questions creating vaiables for readme.md
@@ -63,8 +63,8 @@ const questions = () => {
 function init() {
   questions()
     .then((data) =>
-      writeFile('README.md', generateMarkdown(data)))
-    .then(() => console.log('Successfully wrote to README.md'))
+      writeFile('generatedREADME.md', generateMarkdown(data)))
+    .then(() => console.log('Successfully wrote to generatedREADME.md'))
     .catch((err) => console.error(err));
 }
 
